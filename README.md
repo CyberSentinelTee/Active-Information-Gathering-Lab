@@ -10,8 +10,6 @@ This project demonstrates **active information gathering techniques** for penetr
 
 It is based on real lab work using Kali Linux and a controlled pentest lab environment.
 
----
-
 ## Tools & Technologies
 - **Nmap & Zenmap** – Network scanning and service detection
 - **Hping3** – Packet crafting and host discovery
@@ -19,8 +17,6 @@ It is based on real lab work using Kali Linux and a controlled pentest lab envir
 - **Enum4Linux** – OS and SMB/Samba host enumeration
 - **JXplorer** – LDAP enumeration GUI tool
 - **Wireshark** – Packet capture and analysis
-
----
 
 ## 🟦 Nmap Scanning
 
@@ -157,3 +153,99 @@ Using Hping3 to send SYN packets to probe port 80:
   ```
 
 ![Hping3](images/023_Hping3%20request.png)
+
+## ⬛ SMB, LDAP Enumeration, and Null Sessions
+### SMBmap
+Discover SMB shares and permissions:  
+```bash
+smbmap -H <target IP>
+smbmap -H <target IP> -r <share>
+```
+
+![SMBmap](images/024_SMBMap%20scan%20on%20Metasploitable2.%20The%20tmp%20folder%20gives%20us%20read%20and%20write%20permissions..png)
+
+![SMBmap](images/025_SMBMap%20content%20listing.png)
+
+### SMBclient
+Enumerate SMB services:
+```bash
+smbclient -L //target
+```
+
+![SMBclient](images/026_Attempting%20to%20extract%20any%20shares%20on%20the%20target%20device%20with%20SMBclient.png)
+
+### Enum4linux
+Enumerates:
+  - Password policies
+  - OS details
+  - Shares
+  - Domain/group membership
+  - Users
+
+```bash
+enum4linux <target IP>
+```
+
+![Hping3](images/027_Results%20for%20enum4linux%20on%20Windows%20Server%20VM.png)
+
+### LDAP Enumeration
+Default ports:
+  - LDAP: 389 (plaintext)
+  - LDAPS: 636 (encrypted)   
+Tools like JXplorer can be used for querying directories.  
+
+![JXplorer Interface](images/028_The%20JXplorer%20interface.png)
+
+Setting Up A filter in JXplorer:  
+![JXplorer Interface](images/029_Custom%20JXplorer%20Filter%20to%20search%20for%20Users.png)
+
+Filter Results:  
+![JXplorer Results](images/030_Filter%20Results.png)
+
+### Null Sessions
+Anonymous login to extract sensitive info.
+Example with rpcclient:
+```bash
+rpcclient -U "" -N <target IP>
+```
+
+![Null Session With RPCclient](images/031_Successful%20null%20session%20login.png)
+
+## Skills Demonstrated
+- **Network Scanning & Enumeration**
+  - Conducting host discovery with Nmap (`-sn`, `-Pn`)
+  - Performing TCP, UDP, stealth, and OS/service version scans
+  - Using Nmap Scripting Engine (NSE) for vulnerability detection
+  - Evading IDS/IPS and firewalls with decoys, fragmentation, and spoofing
+
+- **Firewall & Security Device Testing**
+  - Detecting stateful firewalls (`-sA`, `-sX`, `-sF`, `-sN`)
+  - Analyzing packet responses with Wireshark
+
+- **GUI & CLI Security Tools**
+  - Operating **Zenmap** for graphical Nmap scanning
+  - Using **Hping3** for packet crafting, port probing, and ICMP/SYN testing
+
+- **Service Enumeration**
+  - Enumerating SMB shares with **SMBmap** and **SMBclient**
+  - Enumerating OS, users, groups, and shares with **Enum4linux**
+  - Querying LDAP directories with **JXplorer**
+
+- **Exploitation Preparation**
+  - Identifying vulnerable services for potential exploitation
+  - Establishing null sessions for anonymous information gathering
+
+- **Packet & Traffic Analysis**
+  - Capturing and interpreting network traffic with Wireshark
+  - Identifying TCP flags, fragmented packets, and spoofed traffic
+
+- **Security Best Practices**
+  - Understanding plaintext vs encrypted protocols (LDAP vs LDAPS)
+  - Recognizing insecure service configurations
+
+## References
+- Glen D. Singh, *Learn Kali Linux 2019: Perform Powerful Penetration Testing Using Kali Linux, Metasploit, Nessus, Nmap, and Wireshark*, Packt Publishing, 2019. ISBN: 978-1789611806.
+- EC-Council. *Certified Ethical Hacker (CEH) v13 Official Courseware*. Albuquerque, NM: EC-Council, 2023.
+
+## Author
+Tafadzwa Nemukuyu(www.linkedin.com/in/tafadzwa-nemukuyu)
