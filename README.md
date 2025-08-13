@@ -76,8 +76,8 @@ Wireshark shows that no full TCP connection was established.
   
     ![Nmap Decoy Scan](images/008_Nmap%20IP%20Spoofing1.png)
 
-  Wireshark Result: 
-    ![Nmap Decoy Scan2](images/009_Wireshark%20Results%20for%20IP%20Spoofing.png)
+    Wireshark Result: 
+      ![Nmap Decoy Scan2](images/009_Wireshark%20Results%20for%20IP%20Spoofing.png)
   
   - Fragment packets: `nmap -f <target IP>`
 
@@ -91,8 +91,8 @@ Wireshark shows that no full TCP connection was established.
 
     ![Nmap MAC Spooffing1](images/012_Nmap%20MAC%20Address%20Spoofing.png)
 
-  Wireshark Result:<br>
-    ![Nmap MAC Spooffing2](images/013_Wireshark%20results%20for%20MAC%20address%20spoofing%20on%20port%20389.png)
+    Wireshark Result:<br>
+      ![Nmap MAC Spooffing2](images/013_Wireshark%20results%20for%20MAC%20address%20spoofing%20on%20port%20389.png)
   
   - Custom MTU: `nmap --mtu 24 <target IP>`
 
